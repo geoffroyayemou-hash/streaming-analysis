@@ -61,6 +61,7 @@ print(region_summary.round(1))
 
 # Peak hours — want to cross-reference with broadcast schedule eventually
 # TODO: overlay against actual event calendar once I get access to the schedule data
+# would also be interesting to split by sport vs music vs esports to see if patterns differ
 print("\n--- Peak Hours (top 5) ---")
 print(df.groupby("hour")["incident_id"].count().sort_values(ascending=False).head(5))
 
