@@ -7,7 +7,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import os
 
-# --- Load ---
+# --- Load --
 
 df = pd.read_csv("incident_logs.csv", parse_dates=["timestamp"])
 print(f"Loaded {len(df)} records")
@@ -56,7 +56,7 @@ print("\n--- By Region ---")
 region_summary = df.groupby("region").agg(
     count=("incident_id", "count"),
     avg_res_min=("resolution_time_min", "mean")
-).sort_values("count", ascending=False)
+).sort_values("count", ascending=Fals
 print(region_summary.round(1))
 
 # Peak hours — want to cross-reference with broadcast schedule eventually
@@ -102,14 +102,14 @@ fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
 fc = failure_counts.reset_index()
 ax1.barh(fc["event_type"], fc["count"], color="#4472C4")
 ax1.set_xlabel("Count")
-ax1.set_title("Incident Count by Failure Type")
+ax1.set_title("Incident Count by Failure Type (6 months)")
 ax1.invert_yaxis()
 
 sev    = df.groupby("severity")["resolution_time_min"].mean().sort_values()
 colors = {"low": "#70AD47", "medium": "#FFC000", "high": "#FF0000", "critical": "#7030A0"}
 ax2.bar(sev.index, sev.values, color=[colors.get(s, "#aaa") for s in sev.index])
 ax2.set_ylabel("Avg Resolution (min)")
-ax2.set_title("Avg Resolution Time by Severity")
+ax2.set_title("Avg Resolution Time by Severity (min)")
 
 plt.tight_layout()
 plt.savefig("exports/charts.png", dpi=150)
